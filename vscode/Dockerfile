@@ -59,6 +59,14 @@ RUN useradd --create-home --home-dir $HOME user \
 
 COPY start.sh /usr/local/bin/start.sh
 
+RUN mkdir -p /usr/share/fonts/truetype/
+COPY Firicico /usr/share/fonts/truetype/
+COPY NotoEmoji /usr/share/fonts/truetype/
+RUN chmod 644 /usr/share/fonts/truetype/*
+
+# Rebuild the font cache.
+RUN fc-cache -fv
+
 WORKDIR $HOME
 
 CMD [ "start.sh" ]
